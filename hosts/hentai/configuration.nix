@@ -94,12 +94,18 @@
   # $ nix search wget
   environment.systemPackages = with pkgs;
     [
-      vim
       wget
       git
-      neofetch
-      firefox
+      vim
+      htop
+      btop
+      zip
+      unzip
+      p7zip
+#      neofetch
       pciutils
+      usbutils
+      firefox
       bspwm
       sxhkd
       dotnet-sdk
