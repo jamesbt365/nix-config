@@ -5,18 +5,18 @@
 { config, pkgs, inputs, ... }:
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
+
+  nix = {
+    binaryCaches = [ "https://nix-gaming.cachix.org" ];
+    binaryCachePublicKeys = [
+      "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
     ];
-
-nix = {
-  binaryCaches = [ "https://nix-gaming.cachix.org" ];
-  binaryCachePublicKeys = [ "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=" ];
-  trustedUsers = [ "root" "@wheel" ];
-};
-
+    trustedUsers = [ "root" "@wheel" ];
+  };
 
   # Flakes
   nix.package = pkgs.nixFlakes;
@@ -28,7 +28,6 @@ nix = {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   networking.hostName = "hentai"; # I'm very funny
-
 
   # amdgpu
   boot.initrd.kernelModules = [ "amdgpu" ];
@@ -44,17 +43,17 @@ nix = {
 
   # tablet driver
   hardware.opentabletdriver.enable = true;
- 
+
   # udev rules
   services.udev.extraRules = ''
-  KERNEL=="uinput", SUBSYSTEM=="misc", TAG+="uaccess", OPTIONS+="static_node=uinput"
-  # Wacom CTL-672
-  SUBSYSTEM=="hidraw", ATTRS{idVendor}=="056a", ATTRS{idProduct}=="037b", MODE="0666"
-  SUBSYSTEM=="usb", ATTRS{idVendor}=="056a", ATTRS{idProduct}=="037b", MODE="0666"
-  # XP-Pen Star G640
-  SUBSYSTEM=="hidraw", ATTRS{idVendor}=="28bd", ATTRS{idProduct}=="0094", MODE="0666"
-  SUBSYSTEM=="usb", ATTRS{idVendor}=="28bd", ATTRS{idProduct}=="0094", MODE="0666"
-  SUBSYSTEM=="input", ATTRS{idVendor}=="28bd", ATTRS{idProduct}=="0094", ENV{LIBINPUT_IGNORE_DEVICE}="1"
+    KERNEL=="uinput", SUBSYSTEM=="misc", TAG+="uaccess", OPTIONS+="static_node=uinput"
+    # Wacom CTL-672
+    SUBSYSTEM=="hidraw", ATTRS{idVendor}=="056a", ATTRS{idProduct}=="037b", MODE="0666"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="056a", ATTRS{idProduct}=="037b", MODE="0666"
+    # XP-Pen Star G640
+    SUBSYSTEM=="hidraw", ATTRS{idVendor}=="28bd", ATTRS{idProduct}=="0094", MODE="0666"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="28bd", ATTRS{idProduct}=="0094", MODE="0666"
+    SUBSYSTEM=="input", ATTRS{idVendor}=="28bd", ATTRS{idProduct}=="0094", ENV{LIBINPUT_IGNORE_DEVICE}="1"
   '';
 
   # xorg lol
@@ -62,12 +61,8 @@ nix = {
     enable = true;
     libinput = {
       enable = true;
-      mouse = {
-        accelProfile = "flat";
-      };
-      touchpad = {
-        accelProfile = "flat";
-      };
+      mouse = { accelProfile = "flat"; };
+      touchpad = { accelProfile = "flat"; };
     };
   };
   # sddm cringe
@@ -97,19 +92,20 @@ nix = {
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-environment.systemPackages = with pkgs; [
-    vim
-    wget
-    git
-    neofetch
-    firefox
-    pciutils
-    bspwm
-    sxhkd
-    dotnet-sdk
-    dotnet-sdk_5
-    dotnet-runtime
-] ++ (with inputs.nix-gaming.packages.x86_64-linux; [ osu-stable ]);
+  environment.systemPackages = with pkgs;
+    [
+      vim
+      wget
+      git
+      neofetch
+      firefox
+      pciutils
+      bspwm
+      sxhkd
+      dotnet-sdk
+      dotnet-sdk_5
+      dotnet-runtime
+    ] ++ (with inputs.nix-gaming.packages.x86_64-linux; [ osu-stable ]);
 
   # mmm unfree software
   nixpkgs.config.allowUnfree = true;
