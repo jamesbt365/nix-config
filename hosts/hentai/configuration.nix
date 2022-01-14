@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
@@ -11,7 +11,14 @@
       ./hardware-configuration.nix
     ];
 
-  # AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+nix = {
+  binaryCaches = [ "https://nix-gaming.cachix.org" ];
+  binaryCachePublicKeys = [ "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=" ];
+  trustedUsers = [ "root" "@wheel" ];
+};
+
+
+  # Flakes
   nix.package = pkgs.nixFlakes;
   nix.extraOptions = ''
     experimental-features = nix-command flakes
@@ -22,11 +29,33 @@
   boot.loader.efi.canTouchEfiVariables = true;
   networking.hostName = "hentai"; # I'm very funny
 
+
+  # amdgpu
+  boot.initrd.kernelModules = [ "amdgpu" ];
+  services.xserver.videoDrivers = [ "amdgpu" ];
+  hardware.opengl.driSupport = true;
+  hardware.opengl.driSupport32Bit = true;
+
   # Set your time zone.
   time.timeZone = "Europe/London";
 
   # not the best solution but it "works"
   networking.networkmanager.enable = true;
+
+  # tablet driver
+  hardware.opentabletdriver.enable = true;
+ 
+  # udev rules
+  services.udev.extraRules = ''
+  KERNEL=="uinput", SUBSYSTEM=="misc", TAG+="uaccess", OPTIONS+="static_node=uinput"
+  # Wacom CTL-672
+  SUBSYSTEM=="hidraw", ATTRS{idVendor}=="056a", ATTRS{idProduct}=="037b", MODE="0666"
+  SUBSYSTEM=="usb", ATTRS{idVendor}=="056a", ATTRS{idProduct}=="037b", MODE="0666"
+  # XP-Pen Star G640
+  SUBSYSTEM=="hidraw", ATTRS{idVendor}=="28bd", ATTRS{idProduct}=="0094", MODE="0666"
+  SUBSYSTEM=="usb", ATTRS{idVendor}=="28bd", ATTRS{idProduct}=="0094", MODE="0666"
+  SUBSYSTEM=="input", ATTRS{idVendor}=="28bd", ATTRS{idProduct}=="0094", ENV{LIBINPUT_IGNORE_DEVICE}="1"
+  '';
 
   # xorg lol
   services.xserver = {
@@ -59,7 +88,6 @@
     pulse.enable = true;
   };
 
-
   # shit person
   users.users.james = {
     isNormalUser = true;
@@ -69,8 +97,7 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  # honestly what was i doing here xd i'm so skill issued lmao kill me please
-  environment.systemPackages = with pkgs; [
+environment.systemPackages = with pkgs; [
     vim
     wget
     git
@@ -82,7 +109,7 @@
     dotnet-sdk
     dotnet-sdk_5
     dotnet-runtime
-  ];
+] ++ (with inputs.nix-gaming.packages.x86_64-linux; [ osu-stable ]);
 
   # mmm unfree software
   nixpkgs.config.allowUnfree = true;
