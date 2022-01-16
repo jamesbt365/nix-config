@@ -21,6 +21,8 @@
   nixpkgs.config.allowUnfree = true;
 
   home.packages = with pkgs; [
+    winetricks
+    steam
     mpv
     krita
     neofetch

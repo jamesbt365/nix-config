@@ -24,22 +24,39 @@
     experimental-features = nix-command flakes
   '';
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  networking.hostName = "hentai"; # I'm very funny
+  boot = {
+    kernelPackages = pkgs.linuxPackages_zen;
 
-  # amdgpu
-  boot.initrd.kernelModules = [ "amdgpu" ];
-  services.xserver.videoDrivers = [ "amdgpu" ];
+    # Use the systemd-boot EFI boot loader.
+    loader.systemd-boot.enable = true;
+    loader.efi.canTouchEfiVariables = true;
+
+    initrd.kernelModules = [ "amdgpu" ];
+  };
+
+  networking = {
+    hostName = "hentai"; # I don't know why i picked this tbh
+    networkmanager.enable = true; # i'll swap it out eventually
+  };
+
+  services.xserver = {
+    enable = true;
+    displayManager.startx.enable =
+      true; # proper display managers are for the weak.
+    layout = "dvorak"; # us dvorak just in case.
+    videoDrivers = [ "amdgpu" ];
+
+    libinput = {
+      enable = true;
+      mouse = { accelProfile = "flat"; };
+    };
+  };
+
   hardware.opengl.driSupport = true;
   hardware.opengl.driSupport32Bit = true;
 
   # Set your time zone.
   time.timeZone = "Europe/London";
-
-  # not the best solution but it "works"
-  networking.networkmanager.enable = true;
 
   # tablet driver
   hardware.opentabletdriver.enable = true;
@@ -56,62 +73,39 @@
     SUBSYSTEM=="input", ATTRS{idVendor}=="28bd", ATTRS{idProduct}=="0094", ENV{LIBINPUT_IGNORE_DEVICE}="1"
   '';
 
-  # xorg lol
-  services.xserver = {
-    enable = true;
-    libinput = {
-      enable = true;
-      mouse = { accelProfile = "flat"; };
-      touchpad = { accelProfile = "flat"; };
-    };
-  };
-  # sddm cringe
-  services.xserver.displayManager.sddm.enable = true;
-
-  # you know how i need this thing to use my computer without having a mental breakdown
-  services.xserver.windowManager.bspwm.enable = true;
-
-  # Configure keymap in X11
-  services.xserver.layout = "dvorak"; # dvorak haha
-
-  # Temp pipewire shit
+  # pipewire stuff so i can hear sound
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    config.pipewire = { };
   };
-
   # shit person
   users.users.james = {
     isNormalUser = true;
     initialPassword = "test";
     extraGroups = [ "wheel" ];
   };
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs;
-    [
-      wget
-      git
-      vim
-      htop
-      btop
-      zip
-      unzip
-      p7zip
-#      neofetch
-      pciutils
-      usbutils
-      firefox
-      bspwm
-      sxhkd
-      dotnet-sdk
-      dotnet-sdk_5
-      dotnet-runtime
-    ] ++ (with inputs.nix-gaming.packages.x86_64-linux; [ osu-stable ]);
+  environment.systemPackages = with pkgs; [
+    wget
+    git
+    vim
+    htop
+    btop
+    zip
+    unzip
+    p7zip
+    pciutils
+    usbutils
+    dotnet-sdk
+    dotnet-sdk_5
+    dotnet-runtime
+    inputs.nix-gaming.packages.x86_64-linux.osu-stable
+  ];
 
   # mmm unfree software
   nixpkgs.config.allowUnfree = true;
