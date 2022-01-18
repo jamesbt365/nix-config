@@ -1,14 +1,12 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
+{ config, pkgs, inputs, modules, ... }: {
+  system.stateVersion = "22.05";
+  networking.hostName = "hentai"; # I don't know why i picked this tbh
+  time.timeZone = "Europe/London";
 
-{ config, pkgs, inputs, ... }:
-
-{
-  imports = [
-    # Include the results of the hardware scan.
+  imports = [ 
+    ./kernel.nix 
     ./hardware-configuration.nix
-  ];
+];
 
   nix = {
     binaryCaches = [ "https://nix-gaming.cachix.org" ];
@@ -24,25 +22,13 @@
     experimental-features = nix-command flakes
   '';
 
-  boot = {
-    kernelPackages = pkgs.linuxPackages_zen;
-
-    # Use the systemd-boot EFI boot loader.
-    loader.systemd-boot.enable = true;
-    loader.efi.canTouchEfiVariables = true;
-
-    initrd.kernelModules = [ "amdgpu" ];
-  };
-
   networking = {
-    hostName = "hentai"; # I don't know why i picked this tbh
     networkmanager.enable = true; # i'll swap it out eventually
   };
 
   services.xserver = {
     enable = true;
-    displayManager.startx.enable =
-      true; # proper display managers are for the weak.
+    #    displayManager.startx.enable = true; # proper display managers are for the weak.
     layout = "dvorak"; # us dvorak just in case.
     videoDrivers = [ "amdgpu" ];
 
@@ -51,12 +37,12 @@
       mouse = { accelProfile = "flat"; };
     };
   };
+  # Temp solution to stuff not working properly with startx, probably due to DISPLAY not setting idk haven't checked.
+  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.windowManager.bspwm.enable = true;
 
   hardware.opengl.driSupport = true;
   hardware.opengl.driSupport32Bit = true;
-
-  # Set your time zone.
-  time.timeZone = "Europe/London";
 
   # tablet driver
   hardware.opentabletdriver.enable = true;
@@ -73,14 +59,16 @@
     SUBSYSTEM=="input", ATTRS{idVendor}=="28bd", ATTRS{idProduct}=="0094", ENV{LIBINPUT_IGNORE_DEVICE}="1"
   '';
 
-  # pipewire stuff so i can hear sound
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    config.pipewire = { };
+    config.pipewire = {
+      "default.clock.rate" = 48000;
+      "default.clock.quantum" = 48;
+    };
   };
   # shit person
   users.users.james = {
@@ -105,20 +93,12 @@
     dotnet-sdk_5
     dotnet-runtime
     inputs.nix-gaming.packages.x86_64-linux.osu-stable
+    #    inputs.nix-gaming.packages.x86_64-linux.osu-lazer-bin
   ];
 
-  # mmm unfree software
   nixpkgs.config.allowUnfree = true;
-
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.05"; # Did you read the comment?
 }
 

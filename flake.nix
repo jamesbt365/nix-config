@@ -8,11 +8,18 @@
     nix-gaming.url = "github:fufexan/nix-gaming";
   };
 
-  outputs = { self, nixpkgs, nix-gaming, home-manager }@inputs: {
+outputs = { self, nixpkgs, nix-gaming, home-manager }@inputs:
+  let
+    pkgs = import nixpkgs {
+      system = "x86_64-linux";
+      config.allowUnfree = true;
+    };
+  in {
     nixosConfigurations = {
       hentai = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          { nixpkgs.pkgs = pkgs; }
           ./hosts/hentai/configuration.nix
           home-manager.nixosModules.home-manager
           {
