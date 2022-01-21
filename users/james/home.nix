@@ -21,6 +21,7 @@
   nixpkgs.config.allowUnfree = true;
 
   home.packages = with pkgs; [
+    minecraft
     winetricks
     steam
     mpv
