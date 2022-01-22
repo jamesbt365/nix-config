@@ -8,7 +8,8 @@
 
     initrd.kernelModules = [ "amdgpu" ];
   };
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usbhid" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
+  boot.initrd.availableKernelModules =
+    [ "nvme" "xhci_pci" "usbhid" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
   boot.kernelModules = [ "kvm-amd" "rtl8821ce" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ rtl8821ce ];
 }
