@@ -1,1 +1,0 @@
-# this is for when i want to make it look nice overall in my entire config, but i'm lazy :)

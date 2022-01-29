@@ -1,6 +1,6 @@
 { config, pkgs, inputs, modules, ... }: {
   system.stateVersion = "22.05";
-  networking.hostName = "hentai"; # I don't know why i picked this tbh
+  networking.hostName = "snowland"; # thanks snow for the name :>
   time.timeZone = "Europe/London";
 
   imports = [
@@ -13,7 +13,7 @@
     # host specific
     ./kernel.nix
     ./hardware-configuration.nix
-];
+  ];
   networking = {
     networkmanager.enable = true; # i'll swap it out eventually
   };

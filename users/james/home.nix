@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   home.username = "james";
   home.homeDirectory = "/home/james";
   home.stateVersion = "22.05";
@@ -8,31 +7,39 @@
   programs.home-manager.enable = true;
   nixpkgs.config.allowUnfree = true;
 
+  imports = [
+    ../../modules/james/git.nix
+    #     ../../modules/james/theming.nix # this causes home-manager to just refuse?
+  ];
+
   home.packages = with pkgs; [
-    minecraft
-    winetricks
-    steam
-    mpv
-    krita
-    neofetch
-    firefox
-    obs-studio
-    noisetorch
-    brightnessctl
-    pavucontrol
-    discord
-    rofi
     bspwm
-    sxhkd
-    pcmanfm
-    kitty
-    polybar
-    unclutter
-    flameshot
+    btop
+    discord
     dunst
-    picom
+    ffmpeg
+    firefox
+    flameshot
+    kitty
+    krita
+    minecraft
+    mpv
+    neofetch
     nitrogen
+    noisetorch
+    obs-studio
+    p7zip
+    pavucontrol
+    pcmanfm
+    picom
+    polybar
+    rofi
+    steam
+    sxhkd
+    unclutter
+    unrar
     vscode
+    winetricks
   ];
 
 }
