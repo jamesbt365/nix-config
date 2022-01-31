@@ -35,8 +35,9 @@
   # shit person
   users.users.james = {
     isNormalUser = true;
-    initialPassword = "test";
+    initialPassword = "nixos";
     extraGroups = [ "wheel" ];
+    shell = pkgs.zsh;
   };
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
