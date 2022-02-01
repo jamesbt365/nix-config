@@ -1,20 +1,32 @@
-{ config, lib, pkgs, modulesPath, ... }:
-
-{
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
-
-  fileSystems."/" = {
-    device = "/dev/disk/by-label/nixos";
-    fsType = "ext4";
+{ config, ... }:
+let
+  mkMount = label: type: {
+    device = "/dev/disk/by-label/${label}";
+    fsType = type;
+    options = [ "defaults" "noatime" ];
   };
+  mkBtrfsMount = subvol:
+    mkMount "nixos" "btrfs" // {
+      options = [
+        "compress-force=zstd"
+        "defaults"
+        "discard=async"
+        "noatime"
+        "space_cache=v2"
+        "ssd"
+        "subvol=${builtins.toString subvol}"
+      ];
+    };
+in {
+  fileSystems = {
+    "/" = mkBtrfsMount "@";
+    "/home" = mkBtrfsMount "@home";
+    "/home/.snapshots" = mkBtrfsMount "@home_snapshots";
+    "/root" = mkBtrfsMount "@root";
+    "/nix" = mkBtrfsMount "@nix";
+    "/var" = mkBtrfsMount "@var";
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-label/boot";
-    fsType = "vfat";
+    # Example external storage drive
+    "/media/storage" = mkMount "storage" "ext4";
   };
-
-  swapDevices = [ ];
-
-  hardware.cpu.amd.updateMicrocode =
-    lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

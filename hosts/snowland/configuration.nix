@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, modules, ... }: {
+{ config, pkgs, inputs, modules, lib, ... }: {
   system.stateVersion = "22.05";
   networking.hostName = "snowland"; # thanks snow for the name :>
   time.timeZone = "Europe/London";
@@ -41,4 +41,8 @@
   };
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+
+  hardware.cpu.amd.updateMicrocode =
+  lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.enableRedistributableFirmware = lib.mkDefault true;
 }
