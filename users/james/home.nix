@@ -12,7 +12,7 @@
 #     ../../modules/james/theming.nix # this causes home-manager to just refuse?
     ../../modules/james/shell.nix
     ../../modules/james/kitty.nix
-    ../../modules/james/bspwm.nix
+#    ../../modules/james/bspwm.nix # this works but i'm sick of being a moron with it
     ../../modules/james/sxhkd.nix
     ../../modules/james/xorg.nix
 #    ../../modules/james/polybar.nix # fucking polybar takes too long to convert.
@@ -39,6 +39,7 @@
     pcmanfm
     picom
     polkit_gnome
+    polybar
     rofi
     steam
     sxhkd
