@@ -2,11 +2,7 @@
     xsession.windowManager.bspwm = {
         enable = true;
         monitors = { 
-            eDP-1 = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ];
-            HDMI-A-0 = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ];
-            # i'm on a vm so i hope this works when i deploy, but its a lazy? way of doing
-            # it saying this changes between machine but uhhh, i don't know i'll fix later.
-        };
+            eDP = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ];        };
         settings = {
             window_gap = 5;
             border_width = 3;
