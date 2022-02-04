@@ -47,6 +47,7 @@
     unrar
     vscode
     winetricks
+    gamemode
   ];
 
 }
