@@ -9,7 +9,7 @@
 
   imports = [
     ../../modules/james/git.nix
-#     ../../modules/james/theming.nix # this causes home-manager to just refuse?
+#    ../../modules/james/theming.nix # this causes home-manager to just refuse?
     ../../modules/james/shell.nix
     ../../modules/james/kitty.nix
 #    ../../modules/james/bspwm.nix # this works but i'm sick of being a moron with it
@@ -20,15 +20,19 @@
     ../../modules/james/picom.nix
   ];
 
+  #   nixpkgs.overlays = [
+  #   (import ../../overlays/idonthaveoneyet)
+  # ];
+
   home.packages = with pkgs; [
     btop
-    discord
+    discord-canary
     dunst
     ffmpeg
     firefox
     flameshot
     krita
-    minecraft
+    polymc
     mpv
     neofetch
     nitrogen
@@ -48,6 +52,8 @@
     vscode
     winetricks
     gamemode
+    xorg.xgamma
+    unzip
   ];
 
 }
