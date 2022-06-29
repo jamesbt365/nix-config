@@ -2,7 +2,7 @@
     programs.kitty = {
     enable = true;
     settings = {
-    enable_audio_bell = false; # no sound best
+    enable_audio_bell = false;
     background = "#222222";
     };
 };

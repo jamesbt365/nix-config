@@ -7,13 +7,12 @@
             window_gap = 5;
             border_width = 3;
             split_ratio = 0.5;
-            top_padding = 32; # i'll adjust later.
+            top_padding = 30;
             normal_border_color = "#000000";
             focused_border_color = "#5D3FD3";
             normal_urgent_color = "#ff0000";
         };
         extraConfig = ''
-        # do something else other than this method.
         sxhkd &
         xsetroot -cursor_name left_ptr &
         polybar bar1 &

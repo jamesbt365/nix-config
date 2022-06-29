@@ -4,13 +4,11 @@
   time.timeZone = "Europe/London";
 
   imports = [
-    # i'm lazy so this will look stupid.
     ../../modules/system/pipewire.nix
     ../../modules/system/nix.nix
     ../../modules/system/packages.nix
     ../../modules/system/xorg.nix
 
-    # host specific
     ./kernel.nix
     ./hardware-configuration.nix
   ];
@@ -40,7 +38,7 @@
     extraGroups = [ "wheel" ];
     shell = pkgs.zsh;
   };
-  # Enable the OpenSSH daemon.
+  
   services.openssh.enable = true;
 
   hardware.cpu.amd.updateMicrocode =

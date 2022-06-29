@@ -1,6 +1,5 @@
 { config, pkgs, ... }:
 let
-  # this may or may not work?
   super = "Mod4";
   alt = "Mod1";
 in {
