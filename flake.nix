@@ -30,18 +30,18 @@
             home-manager.nixosModules.home-manager
             {
               home-manager.useUserPackages = true;
-              home-manager.users.james = import ./users/james/home.nix;
+              home-manager.users.lily = import ./users/lily/home.nix;
             }
           ];
           specialArgs = { inherit inputs; };
         };
       };
       homeConfigurations = {
-        james = inputs.home-manager.lib.homeManagerConfiguration {
+        lily = inputs.home-manager.lib.homeManagerConfiguration {
           system = "x86_64-linux";
-          homeDirectory = "/home/james";
-          username = "james";
-          configuration.imports = [ ./users/james/home.nix ];
+          homeDirectory = "/home/lily";
+          username = "lily";
+          configuration.imports = [ ./users/lily/home.nix ];
           extraSpecialArgs = { inherit inputs; };
         };
       };
