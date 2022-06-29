@@ -3,8 +3,8 @@
     wget
     git
     vim
-    htop
     pciutils
+    cryptsetup
     dotnet-sdk
     dotnet-sdk_5
     dotnet-runtime

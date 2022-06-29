@@ -25,7 +25,6 @@
   # ];
 
   home.packages = with pkgs; [
-    btop
     discord-canary
     dunst
     ffmpeg
@@ -35,10 +34,8 @@
     polymc
     mpv
     neofetch
-    nitrogen
-    noisetorch
+    easyeffects
     obs-studio
-    p7zip
     pavucontrol
     pcmanfm
     picom
@@ -48,12 +45,10 @@
     steam
     sxhkd
     unclutter
-    unrar
-    vscode
+    vscodium
     winetricks
     gamemode
     xorg.xgamma
-    unzip
   ];
 
 }
