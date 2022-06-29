@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }: {
   boot = {
-  kernelPackages = pkgs.linuxPackages_zen;
-    # Use the systemd-boot EFI boot loader.
+  kernelPackages = pkgs.linuxPackages_5_15;
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
 

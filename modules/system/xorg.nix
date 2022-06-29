@@ -1,5 +1,4 @@
 { configs, pkgs, lib, ... }: {
-#  fonts are literally just stolen from lava tbf
     fonts = {
     enableDefaultFonts = true;
     fontconfig = {
@@ -11,8 +10,7 @@
     };
     fonts = with pkgs; [
       cascadia-code
-      font-awesome-ttf
-      font-awesome_4
+      font-awesome
       hanazono
       material-icons
       noto-fonts
