@@ -9,7 +9,7 @@
 
   imports = [
     ../../modules/user/git.nix
-#    ../../modules/user/theming.nix # this causes home-manager to just refuse?
+    ../../modules/user/theming.nix
     ../../modules/user/shell.nix
     ../../modules/user/kitty.nix
 #    ../../modules/user/bspwm.nix # this works but i'm sick of being a moron with it
@@ -26,6 +26,7 @@
 
   home.packages = with pkgs; [
     discord-canary
+    dconf
     dunst
     ffmpeg
     firefox

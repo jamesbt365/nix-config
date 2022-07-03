@@ -32,7 +32,7 @@
   SUBSYSTEM=="input", ATTRS{idVendor}=="28bd", ATTRS{idProduct}=="0094", ENV{LIBINPUT_IGNORE_DEVICE}="1"
   '';
   # shit person
-  users.users.james = {
+  users.users.lily = {
     isNormalUser = true;
     initialPassword = "nixos";
     extraGroups = [ "wheel" ];
