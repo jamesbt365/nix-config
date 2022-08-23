@@ -49,6 +49,7 @@
     vscodium
     winetricks
     gamemode
+    dconf
     xorg.xgamma
   ];
 
