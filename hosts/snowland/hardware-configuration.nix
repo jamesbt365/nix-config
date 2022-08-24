@@ -27,6 +27,6 @@ in {
     "/var" = mkBtrfsMount "@var";
 
     # Example external storage drive
-#    "/media/storage" = mkMount "storage" "ext4";
+    #    "/media/storage" = mkMount "storage" "ext4";
   };
 }

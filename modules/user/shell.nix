@@ -17,10 +17,11 @@
       ];
       username = {
         style_user = "bold #FF008E";
-        show_always = true;
         };
       hostname = {
-        style = "bold #ED50F1";
+        ssh_only = true;
+        format = "[$hostname](bold blue) ";
+        disabled = false;
         };
       directory = {
         read_only = "";
