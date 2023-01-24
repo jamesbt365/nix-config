@@ -7,8 +7,10 @@
     initrd.kernelModules = [ "amdgpu" ];
   };
   boot.initrd.availableKernelModules =
-    [ "nvme" "xhci_pci" "usb_storage" "usbhid" "sd_mod" "rtsx_pci_sdmmc" ];
-  boot.kernelModules = [ "kvm-amd" "rtl8821ce" ];
-  boot.extraModulePackages = with config.boot.kernelPackages; [ rtl8821ce ];
+    [ "xhci_pci" "ahci" "ahci_pci" "usb_storage" "sd_mod" "sr_mod" ];
+  boot.kernelModules = [ "kvm-amd" "rtl8723de" ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ rtl8723de ];
   zramSwap.enable = true;
 }
+
+# rtw88-8723de

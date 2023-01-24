@@ -1,5 +1,5 @@
 { config, lib, modules, pkgs, ... }: {
-  users.users.lily = {
+  users.users.riley = {
     isNormalUser = true;
     initialPassword = "nixos";
     extraGroups = [ "wheel" ];
@@ -7,8 +7,8 @@
   };
   home-manager.users.lily = { config, enableGUI, lib, pkgs, ... }: {
     home = {
-      username = "lily";
-      homeDirectory = "/home/lily";
+      username = "riley";
+      homeDirectory = "/home/riley";
       stateVersion = "22.05";
     };
 

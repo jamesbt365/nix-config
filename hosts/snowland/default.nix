@@ -15,7 +15,7 @@
     ./kernel.nix
     ./hardware-configuration.nix
 
-    ../../users/lily
+    ../../users/riley
   ];
   networking = {
     networkmanager.enable = true; # i'll swap it out eventually
