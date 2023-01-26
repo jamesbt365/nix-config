@@ -9,23 +9,17 @@
     home = {
       username = "lily";
       homeDirectory = "/home/lily";
-      stateVersion = "22.05";
+      stateVersion = "23.05";
     };
 
     imports = with modules.user; [
       ./packages.nix
 
       git
-      theming
-      shell
-      kitty
-      bspwm # this works but i'm sick of being a moron with it
-      sxhkd
-      xorg
       gpg
-      #    ../../modules/user/polybar.nix # fucking polybar takes too long to convert.
-      # i'll put rofi here soon:tm:
-      picom
+      kitty
+      shell
+      theming
     ];
   };
 }

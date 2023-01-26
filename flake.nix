@@ -7,7 +7,7 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    nix-gaming.url = "github:fufexan/nix-gaming";
+    nix-gaming.url = "github:jamesbt365/nix-gaming/osu-stable-bump";
   };
 
   outputs = { self, nixpkgs, nix-gaming, home-manager, ... }@inputs:

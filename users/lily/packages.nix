@@ -1,32 +1,32 @@
 { config, pkgs, ... }: {
 
   home.packages = with pkgs; [
-    discord-canary
+    autotiling
+    brightnessctl
+    btop
     dconf
-    dunst
+    discord
     ffmpeg
-    firefox
-    flameshot
-    krita
-    polymc
+    firefox-bin
+    gamemode
+    grim
+    keepassxc
+    mako
     mpv
     neofetch
-    easyeffects
     obs-studio
     pavucontrol
     pcmanfm
-    picom
     polkit_gnome
-    polybar
-    rofi
+    prismlauncher
+    slurp
     steam
-    sxhkd
-    unclutter
-    vscodium
+    sway
+    vscode
+    waybar
     winetricks
-    gamemode
-    dconf
-    xorg.xgamma
+    wl-clipboard
+    wofi
   ];
 
 }

@@ -1,6 +1,6 @@
 { config, pkgs, inputs, modules, lib, ... }: {
-  system.stateVersion = "22.05";
-  networking.hostName = "snowland"; # thanks snow for the name :>
+  system.stateVersion = "23.05";
+  networking.hostName = "snowland";
   time.timeZone = "Europe/London";
 
   imports = with modules.system; [
@@ -18,7 +18,7 @@
     ../../users/lily
   ];
   networking = {
-    networkmanager.enable = true; # i'll swap it out eventually
+    networkmanager.enable = true;
   };
 
   hardware.opengl.driSupport = true;
